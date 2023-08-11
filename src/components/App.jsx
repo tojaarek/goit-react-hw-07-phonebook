@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/actions';
 import Loader from './Loader/Loader';
+import { selectError, selectIsLoading } from 'redux/selectors';
 
 export const App = () => {
   const [filter, setFilter] = useState('');
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.contacts.isLoading);
-  const error = useSelector(state => state.contacts.error);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(getContacts());

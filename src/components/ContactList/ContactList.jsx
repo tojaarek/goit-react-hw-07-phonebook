@@ -2,22 +2,11 @@ import Contact from 'components/Contact/Contact';
 import { useSelector } from 'react-redux';
 import results from './ContactList.module.css';
 import PropTypes from 'prop-types';
-
-export const getFiltersContacts = (contacts, statusFilter) => {
-  switch (statusFilter) {
-    case 'favorite':
-      return contacts.filter(contact => contact.favorite);
-    default:
-      return contacts;
-  }
-};
+import { selectContacts, selectFiltersContacts } from 'redux/selectors';
 
 const ContactList = ({ filter }) => {
-  const contacts = useSelector(state => {
-    return state.contacts.items;
-  });
-  const statusFilter = useSelector(state => state.filter.status);
-  const filterContacts = getFiltersContacts(contacts, statusFilter);
+  const contacts = useSelector(selectContacts);
+  const filterContacts = useSelector(selectFiltersContacts);
 
   if (!contacts || contacts.length === 0) {
     return (
